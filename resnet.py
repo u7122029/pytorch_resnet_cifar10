@@ -27,6 +27,8 @@ Reference:
 If you use this implementation in you work, please don't forget to mention the
 author, Yerlan Idelbayev.
 '''
+import collections
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -116,29 +118,65 @@ class ResNet(nn.Module):
         out = self.linear(out)
         return out
 
+def correct_state_dict(state_dict):
+    new_dict = collections.OrderedDict()
+    for key, value in state_dict.items():
+        new_key = key.replace("module.", "")
+        new_dict[new_key] = value
+    return new_dict
 
-def resnet20():
-    return ResNet(BasicBlock, [3, 3, 3])
+def resnet20(pretrained=True):
+    resnet = ResNet(BasicBlock, [3, 3, 3])
 
-
-def resnet32():
-    return ResNet(BasicBlock, [5, 5, 5])
-
-
-def resnet44():
-    return ResNet(BasicBlock, [7, 7, 7])
-
-
-def resnet56():
-    return ResNet(BasicBlock, [9, 9, 9])
-
-
-def resnet110():
-    return ResNet(BasicBlock, [18, 18, 18])
+    if pretrained:
+        state_dict = torch.load("pretrained_models/resnet20-12fca82f.th")["state_dict"]
+        resnet.load_state_dict(correct_state_dict(state_dict))
+    return resnet
 
 
-def resnet1202():
-    return ResNet(BasicBlock, [200, 200, 200])
+def resnet32(pretrained=True):
+    resnet = ResNet(BasicBlock, [5, 5, 5])
+
+    if pretrained:
+        state_dict = torch.load("pretrained_models/resnet32-d509ac18.th")["state_dict"]
+        resnet.load_state_dict(correct_state_dict(state_dict))
+    return resnet
+
+
+def resnet44(pretrained=True):
+    resnet = ResNet(BasicBlock, [7, 7, 7])
+
+    if pretrained:
+        state_dict = torch.load("pretrained_models/resnet44-014dd654.th")["state_dict"]
+        resnet.load_state_dict(correct_state_dict(state_dict))
+    return resnet
+
+
+def resnet56(pretrained=True):
+    resnet = ResNet(BasicBlock, [9, 9, 9])
+
+    if pretrained:
+        state_dict = torch.load("pretrained_models/resnet56-4bfd9763.th")["state_dict"]
+        resnet.load_state_dict(correct_state_dict(state_dict))
+    return resnet
+
+
+def resnet110(pretrained=True):
+    resnet = ResNet(BasicBlock, [18, 18, 18])
+
+    if pretrained:
+        state_dict = torch.load("pretrained_models/resnet110-1d1ed7c2.th")["state_dict"]
+        resnet.load_state_dict(correct_state_dict(state_dict))
+    return resnet
+
+
+def resnet1202(pretrained=True):
+    resnet = ResNet(BasicBlock, [200, 200, 200])
+
+    if pretrained:
+        state_dict = torch.load("pretrained_models/resnet1202-f3b1deed.th")["state_dict"]
+        resnet.load_state_dict(correct_state_dict(state_dict))
+    return resnet
 
 
 def test(net):
@@ -152,8 +190,9 @@ def test(net):
 
 
 if __name__ == "__main__":
-    for net_name in __all__:
+    """for net_name in __all__:
         if net_name.startswith('resnet'):
             print(net_name)
             test(globals()[net_name]())
-            print()
+            print()"""
+    resnet = resnet1202()
