@@ -129,7 +129,8 @@ def resnet20(pretrained=True):
     resnet = ResNet(BasicBlock, [3, 3, 3])
 
     if pretrained:
-        state_dict = torch.load("https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet20-12fca82f.th")["state_dict"]
+        state_dict = torch.hub.load_state_dict_from_url(
+            "https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet20-12fca82f.th")["state_dict"]
         resnet.load_state_dict(correct_state_dict(state_dict))
     return resnet
 
@@ -138,7 +139,8 @@ def resnet32(pretrained=True):
     resnet = ResNet(BasicBlock, [5, 5, 5])
 
     if pretrained:
-        state_dict = torch.load("https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet32-d509ac18.th")["state_dict"]
+        state_dict = torch.hub.load_state_dict_from_url(
+            "https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet32-d509ac18.th")["state_dict"]
         resnet.load_state_dict(correct_state_dict(state_dict))
     return resnet
 
@@ -147,7 +149,8 @@ def resnet44(pretrained=True):
     resnet = ResNet(BasicBlock, [7, 7, 7])
 
     if pretrained:
-        state_dict = torch.load("https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet44-014dd654.th")["state_dict"]
+        state_dict = torch.hub.load_state_dict_from_url(
+            "https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet44-014dd654.th")["state_dict"]
         resnet.load_state_dict(correct_state_dict(state_dict))
     return resnet
 
@@ -156,7 +159,8 @@ def resnet56(pretrained=True):
     resnet = ResNet(BasicBlock, [9, 9, 9])
 
     if pretrained:
-        state_dict = torch.load("https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet56-4bfd9763.th")["state_dict"]
+        state_dict = torch.hub.load_state_dict_from_url(
+            "https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet56-4bfd9763.th")["state_dict"]
         resnet.load_state_dict(correct_state_dict(state_dict))
     return resnet
 
@@ -175,7 +179,7 @@ def resnet1202(pretrained=True):
     resnet = ResNet(BasicBlock, [200, 200, 200])
 
     if pretrained:
-        state_dict = torch.load(
+        state_dict = torch.hub.load_state_dict_from_url(
             "https://github.com/u7122029/pytorch_resnet_cifar10/releases/download/pretrained/resnet1202-f3b1deed.th")["state_dict"]
         resnet.load_state_dict(correct_state_dict(state_dict))
     return resnet
